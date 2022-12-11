@@ -10,5 +10,10 @@ export default defineConfig({
             fileName: 'spa-vanilla'
         }
     },
+    test: {
+        globals: true,
+        environment: 'jsdom',
+        setupFiles: './lib/test/setup.ts'
+    },
     plugins:[dts()]
 })

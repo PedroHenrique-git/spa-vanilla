@@ -6,6 +6,10 @@ export class State<T = Record<string, unknown>> implements Observable {
     this._state = state ? state : null;
   }
 
+  getObservers() {
+    return this.observers;
+  }
+
   getState() {
     return this._state;
   }
