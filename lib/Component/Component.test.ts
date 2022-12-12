@@ -1,143 +1,163 @@
-import { screen } from '@testing-library/dom'
-import { describe, expect, it } from 'vitest'
-import { State } from '../main'
-import { MockComponent } from '../mock/MockComponent'
+import { screen } from '@testing-library/dom';
+import { describe, expect, it } from 'vitest';
+import { State } from '../main';
+import { MockComponent } from '../mock/MockComponent';
 
 describe('Component', () => {
-    const mockComponentWithoutPropsAndState: MockComponent = new MockComponent(document.body) // component 1
-    const mockComponentWithPropsAndState: MockComponent = new MockComponent(null, new State({ count: 0 }), { title: 'My Custom title' }) // component 2
-    
-    new MockComponent(null, new State({ count: 0 }), { title: 'With Children' }, [
-        [MockComponent], // component 8
-        [MockComponent], // component 9
-        [MockComponent], // component 10
-        [MockComponent], // component 11
-    ]) // component 3
+  const mockComponentWithoutPropsAndState: MockComponent = new MockComponent(
+    document.body,
+  ); // component 1
+  const mockComponentWithPropsAndState: MockComponent = new MockComponent(
+    null,
+    new State({ count: 0 }),
+    { title: 'My Custom title' },
+  ); // component 2
 
-    new MockComponent(null, new State({ count: 0 }), { title: 'With Children' }, [
-        [MockComponent, new State({ count: 190 }), { title: 'Children' }], // component 17
-        [MockComponent, new State({ count: 190 }), { title: 'Children' }], // component 18
-        [MockComponent, new State({ count: 190 }), { title: 'Children' }], // component 19
-        [MockComponent, new State({ count: 190 }), { title: 'Children' }], // component 20
-    ]) // component 12
+  new MockComponent(null, new State({ count: 0 }), { title: 'With Children' }, [
+    [MockComponent], // component 8
+    [MockComponent], // component 9
+    [MockComponent], // component 10
+    [MockComponent], // component 11
+  ]); // component 3
 
-    it('all children should be in the document', () => {
-        expect(screen.queryByTestId('8')).toBeInTheDocument()
-        expect(screen.queryByTestId('9')).toBeInTheDocument()
-        expect(screen.queryByTestId('10')).toBeInTheDocument()
-        expect(screen.queryByTestId('11')).toBeInTheDocument()
-    })
+  new MockComponent(null, new State({ count: 0 }), { title: 'With Children' }, [
+    [MockComponent, new State({ count: 190 }), { title: 'Children' }], // component 17
+    [MockComponent, new State({ count: 190 }), { title: 'Children' }], // component 18
+    [MockComponent, new State({ count: 190 }), { title: 'Children' }], // component 19
+    [MockComponent, new State({ count: 190 }), { title: 'Children' }], // component 20
+  ]); // component 12
 
-    it('all children should render without state', () => {
-        expect(screen.queryByTestId('mock-visor-8')?.textContent).toBe('without state')
-        expect(screen.queryByTestId('mock-visor-9')?.textContent).toBe('without state')
-        expect(screen.queryByTestId('mock-visor-10')?.textContent).toBe('without state')
-        expect(screen.queryByTestId('mock-visor-11')?.textContent).toBe('without state')
-    })
+  it('all children should be in the document', () => {
+    expect(screen.queryByTestId('8')).toBeInTheDocument();
+    expect(screen.queryByTestId('9')).toBeInTheDocument();
+    expect(screen.queryByTestId('10')).toBeInTheDocument();
+    expect(screen.queryByTestId('11')).toBeInTheDocument();
+  });
 
-    it('all children should render with state and props', () => {
-        expect(screen.queryByTestId('mock-visor-17')?.textContent).toBe('190')
-        expect(screen.queryByTestId('mock-visor-18')?.textContent).toBe('190')
-        expect(screen.queryByTestId('mock-visor-19')?.textContent).toBe('190')
-        expect(screen.queryByTestId('mock-visor-20')?.textContent).toBe('190')
+  it('all children should be render without state', () => {
+    expect(screen.queryByTestId('mock-visor-8')?.textContent).toBe(
+      'without state',
+    );
+    expect(screen.queryByTestId('mock-visor-9')?.textContent).toBe(
+      'without state',
+    );
+    expect(screen.queryByTestId('mock-visor-10')?.textContent).toBe(
+      'without state',
+    );
+    expect(screen.queryByTestId('mock-visor-11')?.textContent).toBe(
+      'without state',
+    );
+  });
 
-        expect(screen.queryByTestId('mock-title-17')?.textContent).toBe('Children')
-        expect(screen.queryByTestId('mock-title-18')?.textContent).toBe('Children')
-        expect(screen.queryByTestId('mock-title-19')?.textContent).toBe('Children')
-        expect(screen.queryByTestId('mock-title-20')?.textContent).toBe('Children')
-    })
+  it('all children should be render with state and props', () => {
+    expect(screen.queryByTestId('mock-visor-17')?.textContent).toBe('190');
+    expect(screen.queryByTestId('mock-visor-18')?.textContent).toBe('190');
+    expect(screen.queryByTestId('mock-visor-19')?.textContent).toBe('190');
+    expect(screen.queryByTestId('mock-visor-20')?.textContent).toBe('190');
 
-    it('should render with children', () => {
-        expect(screen.queryByTestId('3')?.children.length).toBe(5)
-    })
+    expect(screen.queryByTestId('mock-title-17')?.textContent).toBe('Children');
+    expect(screen.queryByTestId('mock-title-18')?.textContent).toBe('Children');
+    expect(screen.queryByTestId('mock-title-19')?.textContent).toBe('Children');
+    expect(screen.queryByTestId('mock-title-20')?.textContent).toBe('Children');
+  });
 
-    it('should in the document even when app is null', () => {
-        expect(screen.queryByTestId('2')).toBeInTheDocument()
-    })
+  it('should be render with children', () => {
+    expect(screen.queryByTestId('3')?.children.length).toBe(5);
+  });
 
-    it('should be initialized with state and props', () => {
-        expect(screen.queryByTestId('mock-title-2')?.textContent).toBe('My Custom title')
-        expect(screen.queryByTestId('mock-visor-2')?.textContent).toBe('0')
-    })
+  it('should be in the document even when app is null', () => {
+    expect(screen.queryByTestId('2')).toBeInTheDocument();
+  });
 
-    it('should be in the document', () => {
-        expect(screen.queryByTestId('1')).toBeInTheDocument()
-    })
+  it('should be initialized with state and props', () => {
+    expect(screen.queryByTestId('mock-title-2')?.textContent).toBe(
+      'My Custom title',
+    );
+    expect(screen.queryByTestId('mock-visor-2')?.textContent).toBe('0');
+  });
 
-    it('key should be 1', () => {
-        expect(screen.queryByTestId('1')?.getAttribute('key')).toBe('1')
-    })
+  it('should be in the document', () => {
+    expect(screen.queryByTestId('1')).toBeInTheDocument();
+  });
 
-    it('should render the correct title', () => {
-        expect(screen.queryByTestId('mock-title-1')?.textContent).toBe('Mock component')
-    })
+  it('key should be 1', () => {
+    expect(screen.queryByTestId('1')?.getAttribute('key')).toBe('1');
+  });
 
-    it('should render the correct visor', () => {
-        expect(screen.queryByTestId('mock-visor-1')?.textContent).toBe('without state')
-    })
+  it('should be render the correct title', () => {
+    expect(screen.queryByTestId('mock-title-1')?.textContent).toBe(
+      'Mock component',
+    );
+  });
 
-    it('state should be undefined and props should be null', () => {
-        expect(mockComponentWithoutPropsAndState.getProps()).toBeNull()
-        expect(mockComponentWithoutPropsAndState.getState()).toBeUndefined()
-    })
+  it('should be render the correct visor', () => {
+    expect(screen.queryByTestId('mock-visor-1')?.textContent).toBe(
+      'without state',
+    );
+  });
 
-    it('child 8: textContent should be change when button is clicked', () => {
-        const buttonIncrease = screen.getByTestId('button-increase-8')
-        const buttonDecrease = screen.getByTestId('button-decrease-8')
+  it('state should be undefined and props should be null', () => {
+    expect(mockComponentWithoutPropsAndState.getProps()).toBeNull();
+    expect(mockComponentWithoutPropsAndState.getState()).toBeUndefined();
+  });
 
-        buttonIncrease.click()
-        buttonDecrease.click()
+  it('child 8: textContent should be change when button is clicked', () => {
+    const buttonIncrease = screen.getByTestId('button-increase-8');
+    const buttonDecrease = screen.getByTestId('button-decrease-8');
 
-        expect(screen.getByTestId('mock-visor-8').textContent).toBe('0')
-    })
+    buttonIncrease.click();
+    buttonDecrease.click();
 
-    it('child 9: textContent should be change when button is clicked', () => {
-        const buttonIncrease = screen.getByTestId('button-increase-9')
-        const buttonDecrease = screen.getByTestId('button-decrease-9')
+    expect(screen.getByTestId('mock-visor-8').textContent).toBe('0');
+  });
 
-        buttonIncrease.click()
-        buttonDecrease.click()
+  it('child 9: textContent should be change when button is clicked', () => {
+    const buttonIncrease = screen.getByTestId('button-increase-9');
+    const buttonDecrease = screen.getByTestId('button-decrease-9');
 
-        expect(screen.getByTestId('mock-visor-9').textContent).toBe('0')
-    })
+    buttonIncrease.click();
+    buttonDecrease.click();
 
-    it('child 10: textContent should be change when button is clicked', () => {
-        const buttonIncrease = screen.getByTestId('button-increase-10')
-        const buttonDecrease = screen.getByTestId('button-decrease-10')
+    expect(screen.getByTestId('mock-visor-9').textContent).toBe('0');
+  });
 
-        buttonIncrease.click()
-        buttonDecrease.click()
+  it('child 10: textContent should be change when button is clicked', () => {
+    const buttonIncrease = screen.getByTestId('button-increase-10');
+    const buttonDecrease = screen.getByTestId('button-decrease-10');
 
-        expect(screen.getByTestId('mock-visor-10').textContent).toBe('0')
-    })
+    buttonIncrease.click();
+    buttonDecrease.click();
 
-    it('child 11: textContent should be change when button is clicked', () => {
-        const buttonIncrease = screen.getByTestId('button-increase-11')
-        const buttonDecrease = screen.getByTestId('button-decrease-11')
+    expect(screen.getByTestId('mock-visor-10').textContent).toBe('0');
+  });
 
-        buttonIncrease.click()
-        buttonDecrease.click()
+  it('child 11: textContent should be change when button is clicked', () => {
+    const buttonIncrease = screen.getByTestId('button-increase-11');
+    const buttonDecrease = screen.getByTestId('button-decrease-11');
 
-        expect(screen.getByTestId('mock-visor-11').textContent).toBe('0')
-    })
+    buttonIncrease.click();
+    buttonDecrease.click();
 
-    it('mockComponentWithoutPropsAndState: state should be change when button is clicked', () => {
-        const buttonIncrease = screen.getByTestId('button-increase-1')
-        const buttonDecrease = screen.getByTestId('button-decrease-1')
+    expect(screen.getByTestId('mock-visor-11').textContent).toBe('0');
+  });
 
-        buttonIncrease.click()
-        buttonDecrease.click()
+  it('mockComponentWithoutPropsAndState: state should be change when button is clicked', () => {
+    const buttonIncrease = screen.getByTestId('button-increase-1');
+    const buttonDecrease = screen.getByTestId('button-decrease-1');
 
-        expect(mockComponentWithoutPropsAndState.getState()?.count).toBe(0)
-    })
+    buttonIncrease.click();
+    buttonDecrease.click();
 
-    it('mockComponentWithPropsAndState: state should be change when button is clicked', () => {
-        const buttonIncrease = screen.getByTestId('button-increase-2')
-        const buttonDecrease = screen.getByTestId('button-decrease-2')
+    expect(mockComponentWithoutPropsAndState.getState()?.count).toBe(0);
+  });
 
-        buttonIncrease.click()
-        buttonDecrease.click()
+  it('mockComponentWithPropsAndState: state should be change when button is clicked', () => {
+    const buttonIncrease = screen.getByTestId('button-increase-2');
+    const buttonDecrease = screen.getByTestId('button-decrease-2');
 
-        expect(mockComponentWithPropsAndState.getState()?.count).toBe(0)
-    })
-})
+    buttonIncrease.click();
+    buttonDecrease.click();
+
+    expect(mockComponentWithPropsAndState.getState()?.count).toBe(0);
+  });
+});

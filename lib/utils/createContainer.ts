@@ -1,8 +1,8 @@
 export const createContainer = (
   containerTag = 'div',
   className = '',
-  app: HTMLElement | null,
-  initializeComponents: (_container: HTMLElement) => void,
+  app: HTMLElement,
+  initializeComponents?: (_container: HTMLElement) => void,
 ) => {
   const container = document.createElement(containerTag);
 
@@ -10,7 +10,11 @@ export const createContainer = (
     container.classList.add(className);
   }
 
-  initializeComponents(container);
+  if (initializeComponents) {
+    initializeComponents(container);
+  }
 
-  app?.append(container);
+  app.append(container);
+
+  return container;
 };

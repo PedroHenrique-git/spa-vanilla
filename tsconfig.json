@@ -13,7 +13,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
   "include": ["lib", "*.d.ts", "lib/typings/*/*.d.ts"],
   "exclude": ["node_modules"]
