@@ -1,7 +1,20 @@
 {
   "name": "spa-vanilla",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "a library to create spa's using only vanilla js",
+  "author": {
+    "name": "Pedro henrique",
+    "url": "https://github.com/PedroHenrique-git"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PedroHenrique-git/spa-vanilla"
+  },
+  "bugs": {
+    "url": "https://github.com/PedroHenrique-git/spa-vanilla/issues"
+  },
+  "keywords": ["spa", "vanilla", "vanilla js", "router", "component", "state"],
   "type": "module",
   "main": "./dist/spa-vanilla.umd.cjs",
   "module": "./dist/spa-vanilla.js",
