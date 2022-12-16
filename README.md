@@ -2,6 +2,8 @@
 
 spa vanilla it's a library to create spa's (single page application) using only vanilla js
 
+you can see a full usage example here: https://pedrohenrique-git.github.io/spa-vanilla-js/
+
 ## List of main components
 
 - [Component](#component)
