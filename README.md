@@ -28,7 +28,7 @@ have a render method that returns an html string and
 also a single parent element.
 
 ~~~typescript
-    import { Component } from '../main';
+    import { Component } from 'spa-vanilla';
 
     export class MockComponent extends Component<{ count: number }, { title: string }> {
         private buttonIncrease: HTMLButtonElement | null = null;
